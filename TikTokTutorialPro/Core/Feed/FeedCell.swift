@@ -18,8 +18,10 @@ struct FeedCell: View {
                     Text("Post \(post)")
                         .foregroundStyle(.white)
                 }
+            
             VStack {
                 Spacer()
+                
                 HStack(alignment: .bottom) {
                     VStack(alignment: .leading) {
                         Text("Sachin Randive")
@@ -28,11 +30,14 @@ struct FeedCell: View {
                     }
                     .foregroundStyle(.white)
                     .font(.subheadline)
+                    
                     Spacer()
+                    
                     VStack(spacing: 28) {
                         Circle()
                             .frame(width: 48, height: 48)
                             .foregroundStyle(.gray)
+                        
                         Button {
                             
                         } label: {
@@ -46,8 +51,8 @@ struct FeedCell: View {
                                     .foregroundStyle(.white)
                                     .bold()
                             }
-                                
                         }
+                        
                         Button {
                             
                         } label: {
@@ -61,8 +66,8 @@ struct FeedCell: View {
                                     .foregroundStyle(.white)
                                     .bold()
                             }
-                                
                         }
+                        
                         Button {
                             
                         } label: {
@@ -70,8 +75,8 @@ struct FeedCell: View {
                                 .resizable()
                                 .frame(width: 24, height: 30)
                                 .foregroundStyle(.white)
-                                
                         }
+                        
                         Button {
                             
                         } label: {
@@ -79,13 +84,10 @@ struct FeedCell: View {
                                 .resizable()
                                 .frame(width: 30, height: 30)
                                 .foregroundStyle(.white)
-                                
                         }
                     }
-                    
                 }
-                .padding(.bottom, 80)
-                
+                .padding(.bottom, 82)
             }
             .padding()
         }
