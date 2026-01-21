@@ -33,6 +33,20 @@ struct ProfileHeaderView: View {
                 UserStatView(value: 7, title: "Likes")
             }
             // Action button
+            
+            Button {
+                
+            } label: {
+                Text("Edit Profile")
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .frame(width: 360, height: 32)
+                    .foregroundColor(.black)
+                    .background(Color(.systemGray6))
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    
+            }
+            Divider()
         }
     }
 }

@@ -15,7 +15,9 @@ struct CurrentUserProfileView: View {
                 VStack {
                     // profile header
                     ProfileHeaderView()
+                    
                     // post grid view
+                    PostGridView()
                 }
             }
         }
