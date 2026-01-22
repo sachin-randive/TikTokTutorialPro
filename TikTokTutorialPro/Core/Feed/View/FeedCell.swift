@@ -10,9 +10,16 @@ import AVKit
 
 struct FeedCell: View {
     let post: Post
+    var player: AVPlayer
+    init(post: Post) {
+        self.post = post
+        self.player = AVPlayer(url: URL(string: post.videoUrl)!)
+    }
+    
     var body: some View {
         ZStack {
-            VideoPlayer(player: AVPlayer(url: URL(string: post.videoUrl)!))
+            CustomVideoPlayer(player: player)
+           // VideoPlayer(player: AVPlayer(url: URL(string: post.videoUrl)!))
                .containerRelativeFrame([.horizontal, .vertical])
 
             
@@ -87,6 +94,9 @@ struct FeedCell: View {
                 .padding(.bottom, 82)
             }
             .padding()
+        }
+        .onAppear {
+            player.play()
         }
     }
 }
