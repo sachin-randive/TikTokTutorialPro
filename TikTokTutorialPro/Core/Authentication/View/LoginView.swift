@@ -54,6 +54,9 @@ struct LoginView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                 }
                 .padding(.vertical)
+                .disabled(!formIsValid)
+                .opacity(formIsValid ? 1 : 0.5)
+                
                 Spacer()
                 // go to sign up.
                 Divider()
@@ -70,6 +73,16 @@ struct LoginView: View {
                 }
            }
         }
+    }
+}
+
+// MARK: - AuthenticationFormProtocol
+
+extension LoginView: AuthenticationFormProtocol {
+    var formIsValid: Bool {
+        return !email.isEmpty
+        && !password.isEmpty
+        && email.contains("@")
     }
 }
 
