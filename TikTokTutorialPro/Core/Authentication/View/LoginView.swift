@@ -43,7 +43,7 @@ struct LoginView: View {
                 
                 // Login Button
                 Button {
-                    
+                    print("DEBUG: Login")
                 } label: {
                     Text("Login")
                         .font(.subheadline)
