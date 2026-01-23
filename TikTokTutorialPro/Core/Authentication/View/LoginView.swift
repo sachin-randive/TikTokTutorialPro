@@ -13,6 +13,7 @@ struct LoginView: View {
     var body: some View {
        NavigationStack {
             VStack {
+                Spacer()
                // Logo Image
                 Image("tiktok")
                     .resizable()
@@ -28,9 +29,45 @@ struct LoginView: View {
                         .textInputAutocapitalization(.never)
                         .modifier(StandardTextFieldModifier())
                 }
-                // Login Button
                 
+                NavigationLink {
+                    Text("Forgot Password?")
+                } label: {
+                    Text("Forgot Password?")
+                        .font(.footnote)
+                        .fontWeight(.semibold)
+                        .padding(.top)
+                        .padding(.trailing, 28)
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                }
+                
+                // Login Button
+                Button {
+                    
+                } label: {
+                    Text("Login")
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.white)
+                        .frame(width: 350, height: 44)
+                        .background(Color.pink)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                }
+                .padding(.vertical)
+                Spacer()
                 // go to sign up.
+                Divider()
+                NavigationLink {
+                    RegistrationView()
+                } label: {
+                    HStack {
+                        Text("Don't have an account?")
+                        Text("Sign Up")
+                            .fontWeight(.semibold)
+                    }
+                    .font(.footnote)
+                    .padding(.vertical)
+                }
            }
         }
     }
