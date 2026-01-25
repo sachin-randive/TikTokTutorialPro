@@ -24,7 +24,7 @@ struct TikTokTutorialProApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MainTabView()
+            LoginView()
         }
     }
 }
