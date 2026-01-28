@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 class FeedViewModel: ObservableObject {
     @Published var posts = [Post]()
     

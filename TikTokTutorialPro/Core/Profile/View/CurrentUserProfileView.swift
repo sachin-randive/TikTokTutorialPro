@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct CurrentUserProfileView: View {
+    let authservice: AuthService
     var body: some View {
-        
         NavigationStack {
             ScrollView {
                 VStack {
@@ -19,11 +19,23 @@ struct CurrentUserProfileView: View {
                     // post grid view
                     PostGridView()
                 }
+                .padding(.top)
+            }
+            .navigationBarTitle("Profile")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Sign Out") {
+                        authservice.signout()
+                    }
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                }
             }
         }
     }
 }
 
 #Preview {
-    CurrentUserProfileView()
+    CurrentUserProfileView(authservice: AuthService())
 }

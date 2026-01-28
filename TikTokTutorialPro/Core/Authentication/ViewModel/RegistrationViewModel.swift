@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 class RegistrationViewModel: ObservableObject {
     private let authService: AuthService
     
