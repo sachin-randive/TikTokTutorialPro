@@ -7,7 +7,6 @@
 
 import Foundation
 
-@MainActor
 class LoginViewModel: ObservableObject {
     private let authService: AuthService
     
