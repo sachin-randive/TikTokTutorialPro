@@ -12,6 +12,7 @@ import FirebaseAuth
 @MainActor
 class AuthService {
     @Published var userSession: FirebaseAuth.User?
+    private let userService = UserService()
     
     func updateUserSession() {
         self.userSession = Auth.auth().currentUser
@@ -35,7 +36,11 @@ class AuthService {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
-            print("DEBUG: User created with uid: \(result.user.uid)")
+           // print("DEBUG: User created with uid: \(result.user.uid)")
+            try await uploadUserData(withEmail: email,
+                                     id: result.user.uid,
+                                     username: username,
+                                     fullname: fullname)
         } catch {
             print("DEBUG: Failed to craete user with error: \(error.localizedDescription)")
             throw error
@@ -46,5 +51,13 @@ class AuthService {
         try? Auth.auth().signOut() // signs user out on backend
         self.userSession = nil // updates routing logic by wiping user session
         
+    }
+    
+    private func uploadUserData(withEmail email: String,
+                                id: String,
+                                username: String,
+                                fullname: String) async throws {
+        let user = User(id: id, username: username, email: email, fullname: fullname, profileImageUrl: "", bio: "")
+        try await userService.uploadUserData(user)
     }
 }
