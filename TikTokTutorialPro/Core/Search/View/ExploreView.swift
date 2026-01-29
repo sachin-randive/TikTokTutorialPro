@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct ExploreView: View {
-    @State private var users = DeveloperPreview.users
+    @StateObject private var viewModel = ExploreViewModel(userService: UserService())
     var body: some View {
         NavigationStack {
             ScrollView {
                 LazyVStack(spacing: 16) {
-                    ForEach(users) { user in
+                    ForEach(viewModel.users) { user in
                         UserCell(user: user)
                     }
                 }
