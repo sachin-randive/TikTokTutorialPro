@@ -15,3 +15,5 @@ struct User: Identifiable, Codable {
     let profileImageUrl: String?
     let bio: String?
 }
+
+extension User: Hashable { }

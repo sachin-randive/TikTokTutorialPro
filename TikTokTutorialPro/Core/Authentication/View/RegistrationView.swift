@@ -47,7 +47,7 @@ struct RegistrationView: View {
             
             // Login Button
             Button {
-                Task{await viewModel.createUser(withEmail: email, password: password, username: fullname, fullname: username)}
+                Task{await viewModel.createUser(withEmail: email, password: password, username: username, fullname: fullname)}
             } label: {
                 Text("Sign up")
                     .font(.subheadline)
