@@ -13,7 +13,7 @@ struct DeveloperPreview {
         username: "sachinrandive",
         email: "sachin@example.com",
         fullname: "Sachin Randive",
-        profileImageUrl: "https://example.com/profile.jpg",
+        profileImageUrl: "https://i.pravatar.cc/150?img=7",
         bio: "Hello, world!")
     
     static var users: [User] = [
