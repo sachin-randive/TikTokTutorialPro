@@ -43,29 +43,11 @@ struct EditProfileView: View {
                         .fontWeight(.semibold)
                         .foregroundStyle(Color(.systemGray2))
                     
-                    HStack {
-                        Text("Name")
-                        
-                        Spacer()
-                        
-                        Text("Sachin Randive")
-                    }
+                    EditProfileOptionRowView(option: EditProfileOptions.name, value: "sachin randive")
                     
-                    HStack {
-                        Text("Username")
-                        
-                        Spacer()
-                        
-                        Text("sachin.randive_01")
-                    }
+                    EditProfileOptionRowView(option: EditProfileOptions.username, value: "sachinrandive01")
                     
-                    HStack {
-                        Text("Bio")
-                        
-                        Spacer()
-                        
-                        Text("Add a bio")
-                    }
+                    EditProfileOptionRowView(option: EditProfileOptions.bio, value: "Formula 1 Driver")
                 }
                 .font(.subheadline)
                 .padding()
@@ -74,6 +56,9 @@ struct EditProfileView: View {
             .task(id: selectedPickerItem) {
                 await loadImage(fromItem: selectedPickerItem)
             }
+            .navigationDestination(for: EditProfileOptions.self, destination: { option in
+                Text(option.title)
+            })
             .navigationTitle("Edit Profile")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -107,4 +92,19 @@ extension EditProfileView {
 }
 #Preview {
     EditProfileView()
+}
+
+struct EditProfileOptionRowView: View {
+    let option: EditProfileOptions
+    let value: String
+    var body: some View {
+        NavigationLink(value: option) {
+            Text(option.title)
+            
+            Spacer()
+            
+            Text(value)
+        }
+        .foregroundStyle(.primary)
+    }
 }
