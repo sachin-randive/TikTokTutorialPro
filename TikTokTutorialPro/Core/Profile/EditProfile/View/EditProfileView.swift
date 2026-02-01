@@ -9,9 +9,14 @@ import SwiftUI
 import PhotosUI
 
 struct EditProfileView: View {
+    @Environment(\.dismiss) var dismiss
+    
     @State private var selectedPickerItem: PhotosPickerItem?
     @State private var profileImage: Image?
-    @Environment(\.dismiss) var dismiss
+    @State private var uiImgae: UIImage?
+    
+    @StateObject var manager = EditProfileManager(imageUploader: ImageUploader())
+    
     let user: User
     
     var body: some View {
@@ -75,7 +80,7 @@ struct EditProfileView: View {
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Done") {
-                        print("DEBUG: Save changes here...")
+                        onDoneTapped()
                     }
                     .fontWeight(.semibold)
                     .foregroundStyle(.black)
@@ -90,8 +95,17 @@ private extension EditProfileView {
         guard let item else { return }
         guard let data = try? await item.loadTransferable(type: Data.self) else { return }
         guard let uiImage = UIImage(data: data) else { return }
+        self.uiImgae = uiImage
         self.profileImage = Image(uiImage: uiImage)
         
+    }
+    
+    func onDoneTapped() {
+        Task {
+            guard  let uiImgae else { return }
+            await manager.uploadProfileImage(uiImgae)
+            dismiss()
+        }
     }
 }
 
