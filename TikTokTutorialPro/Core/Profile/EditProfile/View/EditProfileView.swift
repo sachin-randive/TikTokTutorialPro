@@ -11,6 +11,8 @@ import PhotosUI
 struct EditProfileView: View {
     @State private var selectedPickerItem: PhotosPickerItem?
     @State private var profileImage: Image?
+    @Environment(\.dismiss) var dismiss
+    let user: User
     
     var body: some View {
         NavigationStack {
@@ -43,11 +45,11 @@ struct EditProfileView: View {
                         .fontWeight(.semibold)
                         .foregroundStyle(Color(.systemGray2))
                     
-                    EditProfileOptionRowView(option: EditProfileOptions.name, value: "sachin randive")
+                    EditProfileOptionRowView(option: EditProfileOptions.name, value: user.fullname)
                     
-                    EditProfileOptionRowView(option: EditProfileOptions.username, value: "sachinrandive01")
+                    EditProfileOptionRowView(option: EditProfileOptions.username, value: user.username)
                     
-                    EditProfileOptionRowView(option: EditProfileOptions.bio, value: "Formula 1 Driver")
+                    EditProfileOptionRowView(option: EditProfileOptions.bio, value: user.bio ?? "Add a bio")
                 }
                 .font(.subheadline)
                 .padding()
@@ -56,15 +58,17 @@ struct EditProfileView: View {
             .task(id: selectedPickerItem) {
                 await loadImage(fromItem: selectedPickerItem)
             }
-            .navigationDestination(for: EditProfileOptions.self, destination: { option in
-                Text(option.title)
-            })
+            .navigationDestination(for: EditProfileOptions.self) { option in
+               // EditProfileDetailView(option: option)
+                EditProfileDetailView(option: option, user: user)
+            }
             .navigationTitle("Edit Profile")
             .navigationBarTitleDisplayMode(.inline)
+            
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Cancel") {
-                        print("DEBUG: Cancel changes here...")
+                        dismiss()
                     }
                     .foregroundStyle(.black)
                 }
@@ -81,7 +85,7 @@ struct EditProfileView: View {
     }
 }
 
-extension EditProfileView {
+private extension EditProfileView {
     func loadImage(fromItem item: PhotosPickerItem?) async {
         guard let item else { return }
         guard let data = try? await item.loadTransferable(type: Data.self) else { return }
@@ -90,21 +94,9 @@ extension EditProfileView {
         
     }
 }
+
 #Preview {
-    EditProfileView()
+    EditProfileView(user: DeveloperPreview.user)
 }
 
-struct EditProfileOptionRowView: View {
-    let option: EditProfileOptions
-    let value: String
-    var body: some View {
-        NavigationLink(value: option) {
-            Text(option.title)
-            
-            Spacer()
-            
-            Text(value)
-        }
-        .foregroundStyle(.primary)
-    }
-}
+
