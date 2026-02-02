@@ -17,7 +17,7 @@ struct MainTabView: View {
     }
     var body: some View {
         TabView(selection: $selectedTab) {
-           // Text("FeedView")
+            // Text("FeedView")
             FeedView()
                 .tabItem {
                     VStack {
@@ -40,10 +40,12 @@ struct MainTabView: View {
                 .onAppear { selectedTab = 1 }
                 .tag(1)
             
-            Text("Upload Post")
+            MediaSelectorView()
                 .tabItem {
                     Image(systemName: "plus")
                 }
+                .onAppear { selectedTab = 2 }
+                .tag(2)
             
             NotificationView()
                 .tabItem {
