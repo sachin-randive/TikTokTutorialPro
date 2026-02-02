@@ -28,15 +28,10 @@ struct EditProfileView: View {
                             image
                                 .resizable()
                                 .scaledToFill()
-                                .frame(width: 64, height: 64)
+                                .frame(width: avatarSize.dimention, height: avatarSize.dimention)
                                 .clipShape(Circle())
                         } else {
-                            Image(systemName: "person.circle.fill")
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 64, height: 64)
-                                .clipShape(Circle())
-                                .foregroundStyle(Color(.systemGray4))
+                            AvatarView(user: user, size: avatarSize)
                         }
                         
                         Text("Change photo")
@@ -106,6 +101,9 @@ private extension EditProfileView {
             await manager.uploadProfileImage(uiImgae)
             dismiss()
         }
+    }
+    var avatarSize: AvatarSize {
+        return .large
     }
 }
 
